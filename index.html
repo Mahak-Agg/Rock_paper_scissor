@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Roch Paper Scissors</title>
+<style>
+*{
+box-sizing: border-box; 
+text-align: center;
+margin-top :20px;
+background-color: pink;
+}
+.playerhead,.computerhead,.resultt{
+margin: 10px;
+font-size:18px;
+font-weight: 600;
+}
+.player,.computer,.result{
+width: 140px;
+background: palevioletred;
+text-align: center;
+padding: 10px;
+height: 70px;
+margin: 0 auto;
+font-size: 17px;
+font-weight: 600;
+border: 2px solid brown;
+}
+.labels{
+display: flex;
+justify-content: center;
+}
+button{
+width: 120px;
+height: 50px;
+background: palevioletred;
+font-size: 17px;
+font-weight: 600;
+margin-right: 10px;
+}
+</style>
+</head>
+
+<body>
+<div>
+<h1>ROCK PAPER SCISSOR</h1>
+<h3>CHOOSE YOUR WEAPON</h3>
+<button value="ROCK">ROCK</button>
+<button value="PAPER">PAPER</button>
+<button value="SCISSOR">SCISSORS</button>
+</div>
+<div class="labels">
+<div>
+<div class="playerhead">PLAYER SCORE</div>
+<div class="player"></div>
+</div>
+<div>
+<div class="computerhead">COMPUTER SCORE</div>
+<div class="computer"></div>
+</div>
+</div>
+<div>
+<div class="resultt">RESULT</div>
+<div class="result"></div>
+
+</div>
+<div>
+<button type="reset" id="reset">Play Again!</button>
+</div>
+
+<script>
+let buttons = document.querySelectorAll("button")
+let playerdisplay = document.querySelector(".player")
+let computerdisplay = document.querySelector(".computer")
+let resultdisplay = document.querySelector(".result")
+let resetBtn = document.querySelector('#reset');
+
+resetBtn.addEventListener('click',() => location.reload());
+
+buttons.forEach(button => {
+button.addEventListener("click",getPlayerChoice)
+
+});
+function getComputerChoice(){
+let arr = ["ROCK","PAPER","SCISSOR"];
+let comp = arr[Math.floor(Math.random()*arr.length)];
+console.log(comp)
+return comp;
+}
+
+function getPlayerChoice(e) {
+let playerSelection= e.target.value;
+// playerChoice = e.target.textContent;
+console.log(playerSelection)
+playRound(playerSelection, getComputerChoice());
+}
+
+let computerscore = 0;
+let playerscore = 0;
+
+
+function playRound(playerSelection, computerSelection) {
+if(computerSelection == playerSelection ) {
+playerdisplay.textContent = ++playerscore
+computerdisplay.textContent = ++computerscore
+}
+
+else if(computerSelection=="ROCK"&& playerSelection=="PAPER" || computerSelection=="PAPER"&& playerSelection=="SCISSOR" || computerSelection=="SCISSOR"&& playerSelection=="ROCK" ){
+
+// console.log(`You won ! ${playerSelection} beats ${computerSelection}`)
+// parar.textContent = "YOU WON"
+playerdisplay.textContent = ++playerscore
+}
+
+else if(computerSelection=="ROCK"&& playerSelection=="SCISSOR" || computerSelection=="PAPER"&& playerSelection=="ROCK" || computerSelection=="SCISSOR"&& playerSelection=="PAPER" ){
+
+// console.log(`You Lose ! ${computerSelection} beats ${playerSelection}`)
+// parar.textContent = "COMPUTER WON"
+computerdisplay.textContent = ++computerscore
+
+}
+isGameOver(playerscore,computerscore)
+
+}
+
+let isGameOver = (playerscore,computerscore)=>
+{
+if(playerscore==5 || computerscore==5){
+let winner = playerscore===5 ? "YOU WON" : "YOU LOST TO COMPUTER"
+resultdisplay.textContent = winner
+console.log(winner)
+buttons.forEach(button=>{
+button.removeEventListener('click', getPlayerChoice);
+})
+}
+
+}
+
+// function gameOver(){
+// // let winner = playerscore===5 ? "YOU WON" : "YOU LOST TO COMPUTER"
+// // parar.textContent = winner
+// // console.log(winner)
+// }
+// function playGame(){
+// if (isGameOver()) return gameOver()
+// }
+
+// playGame()
+
+// for(let i=0;i<5;i++){
+// const playerSelection = (prompt("Play a game . Choose Rock , Paper , Scissor")).toUpperCase();
+// const computerSelection = getComputerChoice();
+// playRound(playerSelection,computerSelection)
+// console.log("your score:"+ playerscore)
+// console.log("computer score:"+computerscore)
+// }
+
+//if(playerscore>computerscore) console.log("YOU WON")
+// if(playerscore==computerscore)console.log("MATCH TIE")
+// else console.log("COMPUTER WON")
+
+// ()=>{
+// let computerSelection = getComputerChoice()
+// let playerSelection = button.value
+// console.log(playerSelection)
+// console.log(computerSelection)
+// // para.textContent = playerSelection
+// // para1.textContent = computerSelection
+// playRound(playerSelection,computerSelection)
+
+// }
+
+</script>
+</body>
+</html>
