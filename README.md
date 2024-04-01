@@ -1,1 +1,1 @@
-# Rock_paper_scissor game till 5 scores achieved .
+# Rock_paper_scissor end game when certain score is achieved.
